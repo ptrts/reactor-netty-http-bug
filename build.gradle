@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+group 'we'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.projectreactor.netty:reactor-netty:1.0.19'
+}
