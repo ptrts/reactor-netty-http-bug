@@ -26,25 +26,31 @@ public class Main {
                 })
                 .bindNow();
 
-        try {
-            HttpClient
-                    .create()
-                    .baseUrl("http://localhost:8080")
-                    .get()
-                    .response()
-                    .block();
-        } catch (Exception e) {
+        HttpClient
+                .create()
+                .baseUrl("http://localhost:8080")
+                .get()
+                .response()
+                .subscribe(
+                        response -> {
+                        },
+                        e -> {
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            System.err.println();
-            System.err.println("--- app.Main logging:");
-            System.err.println();
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                            System.err.println();
+                            System.err.println("--- app.Main logging:");
+                            System.err.println();
+                            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            System.err.println("Caught exception " + e.getClass().getName() + ": " + e.getMessage());
-            System.err.println("The cause was " + e.getCause().getClass().getName() + ": " + e.getCause().getMessage());
-        }
+                            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                            System.err.println();
 
-        disposableHttpServer.disposeNow();
+                            disposableHttpServer.disposeNow();
+                        }
+                );
+
+        disposableHttpServer
+                .onDispose()
+                .block();
     }
 }
